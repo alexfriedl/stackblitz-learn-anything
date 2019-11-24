@@ -22,10 +22,11 @@ function testPromise() {
         promiseCount +
           ") PROMISE STARTED (1) / <small>Async code started</small><br/>"
       );
-      // Asynchrones Beispiel
+      // Asynchrones Beispiel // Non-blocking Javascript
       // resolve(promiseCount) wird vom Event Loop in die Event Queue geschoben
       // Der Excecution Stack wird weiter ausgeführt (sync code terminated)
       // resolve(promiseCount) wird vom EventLoop in den Excecution Stack geschoben
+      // Tutorial: https://www.youtube.com/watch?v=TbCgGWe8LN8
       setTimeout(function() {
         // Wir erfüllen das Promise und übergeben das Ergebnis
         // resolve(promiseCount)

@@ -24,23 +24,22 @@ function testPromise() {
       );
       // Asynchron
       setTimeout(function() {
-        // We fulfill the promise !
+        // Wir erfüllen das Promise und übergeben das Ergebnis
+        // resolve(promiseCount)
+        // then(result)
         resolve(promiseCount);
       }, Math.random() * 1500);
     }
   );
 
   // PROMISE FULFILLED (3)
-  promise1.then(
-    // Logging via HTML
-    function(result) {
-      log.insertAdjacentHTML(
-        "beforeend",
-        result +
-          ") PROMISE FULFILLED (3) / <small>Async code terminated</small><br/>"
-      );
-    }
-  );
+  promise1.then(function(result) {
+    log.insertAdjacentHTML(
+      "beforeend",
+      result +
+        ") PROMISE FULFILLED (3) / <small>Async code terminated</small><br/>"
+    );
+  });
 
   // PROMISE MADE (2)
   log.insertAdjacentHTML(

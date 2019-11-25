@@ -1,3 +1,6 @@
-# stackblitz-learn-anything
+# Async/Await in JavaScript
 
-[Edit on StackBlitz ⚡️](https://stackblitz.com/edit/stackblitz-learn-anything)
+This is the project files for CodeWorkr's Async/Await in JavaScript video on YouTube.
+Video link: [Video](https://www.youtube.com/watch?v=f57IHEeDNcA)
+
+## Happy Coding!

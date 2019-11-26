@@ -1,54 +1,60 @@
-var initialPromiseCount = 0;
-
-// Wir erstellen einen Button
-// Button triggered Promise
-var button = document.getElementById("action");
-button.addEventListener("click", function() {
-  testPromise();
-});
-
-function testPromise() {
-  // Wir loggen einen Counter im DOM
-  var promiseCount = ++initialPromiseCount;
-  var log = document.getElementById("log");
-
-  // PROMISE STARTED (1)
-  // Wir erstellen ein Promise Objekt
-  var promise1 = new Promise(
-    // Die Resolver-Funktion kann den Promise auflösen oder verwerfen
-    function(resolve, reject) {
-      log.insertAdjacentHTML(
-        "beforeend",
-        promiseCount +
-          ") PROMISE STARTED (1) / <small>Async code started</small><br/>"
-      );
-      // Asynchrones Beispiel // Non-blocking Javascript
-      // resolve(promiseCount) wird vom Event Loop in die Event Queue geschoben
-      // Der Excecution Stack wird weiter ausgeführt (sync code terminated)
-      // resolve(promiseCount) wird vom EventLoop in den Excecution Stack geschoben
-      // Tutorial: https://www.youtube.com/watch?v=TbCgGWe8LN8
-      setTimeout(function() {
-        // Wir erfüllen das Promise und übergeben das Ergebnis
-        // resolve(promiseCount)
-        // then(result)
-        resolve(promiseCount);
-      }, Math.random() * 1500);
-    }
-  );
-
-  // PROMISE FULFILLED (3)
-  promise1.then(function(result) {
-    log.insertAdjacentHTML(
-      "beforeend",
-      result +
-        ") PROMISE FULFILLED (3) / <small>Async code terminated</small><br/>"
-    );
-  });
-
-  // PROMISE MADE (2)
-  log.insertAdjacentHTML(
-    "beforeend",
-    promiseCount +
-      ") PROMISE MADE (2) / <small>Sync code terminated</small><br/>"
-  );
+// The keyword async means a function always returns a promise
+async function f1() {
+  return 1;
 }
+console.log("f1: ", f1());
+
+// Returns the same as above
+async function f2() {
+  return Promise.resolve(1);
+}
+console.log("f2: ", f2());
+
+// Example with await
+async function f3() {
+  let promise = Promise.resolve(532);
+  let result = await promise;
+  console.log("await: ", result);
+}
+console.log("f3: ", f3());
+
+// Same example as above with then
+async function f4() {
+  let promise = Promise.resolve(532);
+  let result = promise.then(console.log);
+  console.log("then: ", result);
+}
+console.log("f4: ", f4());
+
+async function f() {
+  console.log("asdf");
+  return 1;
+}
+
+f().then(console.log); // 1
+
+Promise.resolve(23).then(console.log);
+
+// testAsync()
+async function testAsync() {
+  try {
+    console.log("start process 01");
+    await function() {
+      setTimeout(() => {
+        console.log("await process 01");
+      }, 2000);
+      console.log("end process 01");
+    };
+    console.log("start process 02");
+    await function() {
+      setTimeout(() => {
+        console.log("await process 02");
+      }, 1000);
+      console.log("end process 02");
+    };
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+testAsync();

@@ -25,6 +25,7 @@ async function parallelAsync() {
 const process01 = param => {
   return new Promise(resolve => {
     try {
+      //throw new Error('error', error)
       console.log("await process 01");
       setTimeout(() => {
         resolve(param)
@@ -37,7 +38,7 @@ const process01 = param => {
   })
 };
 
-// Process 01 finishes in 1sec
+// Process 02 finishes in 1sec
 const process02 = param => {
   return new Promise(resolve => {
     console.log("await process 02");
@@ -48,4 +49,8 @@ const process02 = param => {
   })
 }
 
-sequentialAsync();
+// init parallel mode
+parallelAsync();
+
+// init sequential mode
+//sequentialAsync();

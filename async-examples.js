@@ -28,10 +28,10 @@ async function example5() {
   return 1;
 }
 
-console.log("f1: ", example1());
-console.log("f2: ", example2());
-console.log("f3: ", example3());
-console.log("f4: ", example4());
+console.log("example1: ", example1());
+console.log("example2: ", example2());
+console.log("example3: ", example3());
+console.log("example4: ", example4());
 
 example5().then(console.log); // 1
 

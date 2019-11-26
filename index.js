@@ -1,23 +1,51 @@
-// testAsync()
-async function testAsync() {
+// Starts and resolves process01
+// Continues process02 after finishing process01
+async function sequentialAsync() {
   try {
     console.log("start process 01");
-    await function() {
-      setTimeout(() => {
-        console.log("await process 01");
-      }, 2000);
-      console.log("end process 01");
-    };
+    await process01('resolved process 01')
     console.log("start process 02");
-    await function() {
-      setTimeout(() => {
-        console.log("await process 02");
-      }, 1000);
-      console.log("end process 02");
-    };
+    await process02('resolved process 02')
   } catch (error) {
     console.error(error);
   }
 }
 
-testAsync();
+// Should start and resolve process01 and process02 parallel
+async function parallelAsync() {
+  try {
+    console.log("starts process 01 and 02");
+    await Promise.all([process01('resolved process 01'), process02('resolved process 02')])
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Process 01 finishes in 2sec
+const process01 = param => {
+  return new Promise(resolve => {
+    try {
+      console.log("await process 01");
+      setTimeout(() => {
+        resolve(param)
+        console.log(param)
+        console.log()
+      }, 2000);
+    } catch (error) {
+      console.error("error", error)
+    }
+  })
+};
+
+// Process 01 finishes in 1sec
+const process02 = param => {
+  return new Promise(resolve => {
+    console.log("await process 02");
+    setTimeout(() => {
+      resolve(param)
+      console.log(param)
+    }, 1000);
+  })
+}
+
+sequentialAsync();
